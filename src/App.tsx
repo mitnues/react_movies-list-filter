@@ -1,13 +1,10 @@
-import React, { useState,useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import './App.scss';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 import { Movie } from './types/movie';
 
-
-
 export const App: React.FC = () => {
-
   const [query, setQuery] = useState('');
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,13 +18,15 @@ export const App: React.FC = () => {
 
     const lowerCaseQuery = query.toLowerCase();
 
-    return moviesFromServer.filter((movie) => {
+    return moviesFromServer.filter(movie => {
       const titleMatches = movie.title.toLowerCase().includes(lowerCaseQuery);
-      const descriptionMatches = movie.description.toLowerCase().includes(lowerCaseQuery);
+      const descriptionMatches = movie.description
+        .toLowerCase()
+        .includes(lowerCaseQuery);
+
       return titleMatches || descriptionMatches;
     });
   }, [query]);
-
 
   return (
     <div className="page">
